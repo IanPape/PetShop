@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}About {{ pet.name }}{% endblock %}
+
+{% block content %}
+    <h1>About {{ pet.name }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ pet.name }}</h5>
+            {% if pet.photo_url %}
+                <img src="{{ pet.photo_url }}" class="img-fluid" alt="{{ pet.name }}">
+            {% endif %}
+            <p class="card-text">Age: {{ pet.age }}</p>
+            <p class="card-text">Species: {{ pet.species }}</p>
+            <p class="card-text">Notes: {{ pet.notes }}</p>
+        </div>
+    </div>
+    <a href="{{ url_for('pet_details_edit', pet_id=pet.id) }}" class="btn btn-primary">Edit Pet</a>
+{% endblock %}

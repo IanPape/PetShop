@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Pet!{% endblock %}
+
+{% block content %}
+<body>
+    <h1>Edit information for {{ pet.name }}</h1>
+    <form action="{{ url_for('pet_details_edit', pet_id=pet.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if field.widget.input_type != 'hidden' %}
+                <p>
+                    {{ field.label }}
+                    {% if field.name == 'photo_url' %}
+                        <input type="text" name="{{ field.name }}" value="{{ pet.photo_url }}">
+                    {% else %}
+                        {{ field(value=pet[field.name].data) }}  <!-- Directly access form data without using getattr -->
+                    {% endif %}
+                    {% for err in field.errors %}
+                        <span style="color:red;">{{ err }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+        {% endfor %}
+        <button type="submit">Edit Pet!</button>
+    </form>
+</body>
+{% endblock %}

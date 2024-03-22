@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Adopt Me!{% endblock %}
+
+{% block content %}
+    <h1>Adopt Me!</h1>
+    {% for pet in pets %}
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% if pet.photo_url %}
+                <img src="{{ pet.photo_url }}" class="img-fluid" alt="{{ pet.name }}">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title"><a href="{{ url_for('pet_details', pet_id=pet.id) }}">{{ pet.name }}</a></h2>
+                    {% if pet.available %}
+                    <p class="card-text">Available for Adoption!</p>
+                    {% else %}
+                    <p class="card-text">Not Available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{{ url_for('add_pet') }}" class="btn btn-primary">Add a Pet!</a>
+{% endblock %}
